@@ -11,13 +11,15 @@ char board[3][3] = { {'1','2','3'},{'4','5','6'},{'7','8','9'} };
 int option;
 int row, column;
 char turn;
-bool game_draw = false;
+bool draw = false;
 							// function declaration 
 void show_Board();
 void Start();
 void player_turn();
 bool game_over();
+
 char symbol_for_player();
+void toggle_player();
 // ****************************
 //			Main Function
 // ****************************
@@ -39,17 +41,21 @@ int main() {
 	while (game_over()) {
 		show_Board();
 		player_turn();
+		/*if (draw==true) {
+			cout << endl << "GAME DRAW.....! " << endl;
+			break;
+		}*/
 		game_over();
 	}
 	system("CLS");
 	cout << "\n\n\n\n\n\n\n";
 	show_Board();
-	if (turn == 'x' && game_draw == false)
+	if (turn == 'x' && draw == false)
 		cout << endl << "Congratulation player 'x' has won the game....!" << endl;
-	else if (turn == 'o' && game_draw == false)
+	else if (turn == 'o' && draw == false)
 		cout << endl << "Congratulation player 'o' has won the game....!" << endl;
 	else
-		cout << "GAME DRAW....  :( " << endl;
+		cout << endl << "GAME DRAW.........! " << endl;
 	
 	_getch();
 	return 0;
@@ -60,7 +66,7 @@ int main() {
 void Start() {
 	cout << "    _____ _______  _____     _______  ____   _____     _______  ____   _____\n"
 		<< "      |      |    |             |    |    | |             |    |    | |\n"
-		<< "      |      |    |             |    |____| |             |    |    | |----\n"
+		<< "      |      |    |             |    |----| |             |    |    | |----\n"
 		<< "      |   ___|___ |_____        |    |    | |_____        |    |____| |_____\n\n"
 		<< "===============================================================================\n";
 	show_Board();
@@ -97,16 +103,26 @@ char symbol_for_player() {
 		return s;
 }
 // ****************************
+//    Toggle player function
+// ****************************
+void toggle_player() {
+	if (turn == 'x')
+		turn = 'o';
+	else
+		turn = 'x';
+}
+// ****************************
 //  Player Turn Function
 // ****************************
 void player_turn() {
 	if (turn == 'x')
-		cout << "PLAYER[x] turn: " << endl;
+		cout << "PLAYER[x]'s turn: " << endl;
 	else if (turn == 'o')
-		cout << "PLAYER[o] turn: " << endl;
-	// taking input from user
+		cout << "PLAYER[o]'s turn: " << endl;
+										// taking input from user
 	cout << "Enter your Choice: ";
 	cin >> option;
+										//To check which column needs to be updated
 	switch (option) {
 	case 1: row = 0; column = 0; break;
 	case 2: row = 0; column = 1; break;
@@ -122,39 +138,38 @@ void player_turn() {
 	}
 	if (turn == 'x' && board[row][column] != 'x' && board[row][column] != 'o') {
 		board[row][column] = 'x';
-		turn = 'o';   // make a toggle function
+		toggle_player();  // toggle player
 	}
 	else if (turn == 'o' && board[row][column] != 'x' && board[row][column] != 'o') {
 		board[row][column] = 'o';
-		turn = 'x';
+		toggle_player();   //toggle player
 	}
 	else {
 		cout << endl << "TAKEN....! " << endl << "Please choose another option:";
 		player_turn();
 	}
-	//show_Board();
 }
 // ****************************
-//		Game Over Function
+//   Game Over Function
 // ****************************
 bool game_over() {
-	//checking the win for Simple Rows and Simple Column
+									// checking the win for row or column
 	for (int i = 0; i < 3; i++)
 		if (board[i][0] == board[i][1] && board[i][0] == board[i][2] || board[0][i] == board[1][i] && board[0][i] == board[2][i])
 			return false;
 
-	//checking the win for both diagonal
-
+									// checking the win for diagonal
 	if (board[0][0] == board[1][1] && board[0][0] == board[2][2] || board[0][2] == board[1][1] && board[0][2] == board[2][0])
 		return false;
 
-	//Checking the game is in continue mode or not
+									// checkin if the game is still continuous
 	for (int i = 0; i < 3; i++)
 		for (int j = 0; j < 3; j++)
-			if (board[i][j] != 'X' && board[i][j] != 'O')
+			if (board[i][j] != 'x' && board[i][j] != 'o')
 				return true;
 
-	//Checking the if game already draw
-	game_draw = true;
+								// checks if the game is already drawn
+	draw = true;
 	return false;
 }
+
