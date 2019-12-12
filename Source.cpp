@@ -12,6 +12,7 @@ int option;
 int row, column;
 char turn;
 bool game_draw = false;
+// function declaration 
 void show_Board();
 void Start();
 void player_turn();
@@ -38,13 +39,16 @@ int main() {
 		player_turn();
 		game_over();
 	}
+	system("CLS");
+	cout << "\n\n\n\n\n\n\n";
+	show_Board();
 	if (turn == 'x' && game_draw == false)
 		cout << endl << "Congratulation player 'x' has won the game....!" << endl;
 	else if (turn == 'o' && game_draw == false)
 		cout << endl << "Congratulation player 'o' has won the game....!" << endl;
 	else
 		cout << "GAME DRAW....  :( " << endl;
-	//	system("CLS");
+	
 	_getch();
 	return 0;
 }
@@ -56,22 +60,12 @@ void Start() {
 		<< "      |   ___|___ |_____        |    |    | |_____        |    |____| |_____\n\n"
 		<< "===============================================================================\n";
 	show_Board();
-	//	cout << "Enter";
-
 }
-// Zaaeema ka show board
-/*void create_Board() {
-	for (int i = 0; i < 19; i++) {
-		for (int j = 0; j < 31; j++) {
-			if (i == 0 || i == 6 || i == 12 || i == 18)
-				arr[i][j] = '=';
-			if (j == 0 || j == 10 || j == 20 || j == 30)
-				arr[i][j] = '|';
-		}
-	}
-}*/
 
 void show_Board() {
+	cout << "\n\n\n";
+	cout << "\t\t\t TURN:   PLAYER[" << turn << "]" << endl;
+	cout << "\t\t\t CHOICE of box: " << option << endl << endl;
 	cout << "\t     |     |     \n";
 	cout << "\t  " << board[0][0] << "  | " << board[0][1] << "   |  " << board[0][2] << " \n";
 	cout << "\t_____|_____|_____\n";
@@ -80,9 +74,7 @@ void show_Board() {
 	cout << "\t_____|_____|_____\n";
 	cout << "\t     |     |     \n";
 	cout << "\t  " << board[2][0] << "  | " << board[2][1] << "   |  " << board[2][2] << " \n";
-}
-void Play(Player p1, Player p2) {
-
+	cout << "\n\n\n";
 }
 char symbol_for_player() {
 	char s;
@@ -95,20 +87,6 @@ char symbol_for_player() {
 		}
 		return s;
 }
-/*char character() {
-	char num;
-	cout << "          -------------------\n"
-		<< "	          CHARACTERS\n"
-		<< "          -------------------\n"
-		<< "              o        x  \n"
-		<< "          PICK A CHARCTER : ";
-	cin >> num;
-	if (num != 'o' && num != 'x') {
-		cout << "INVALID CHARACTER \n Please Enter o or x !" << endl;
-		character();
-	}
-	return num;
-}*/
 void player_turn() {
 	if (turn == 'x')
 		cout << "PLAYER[x] turn: " << endl;
