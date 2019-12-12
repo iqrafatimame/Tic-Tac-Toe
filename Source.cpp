@@ -10,33 +10,40 @@ char board[3][3] = { {'1','2','3'},{'4','5','6'},{'7','8','9'} };
 //Variable Declaration
 int option;
 int row, column;
-char turn = 'x';
-bool draw = false;
+char turn;
+bool game_draw = false;
 void show_Board();
 void Start();
 void player_turn();
 bool game_over();
+char symbol_for_player();
 
 int main() {
 	string p1, p2;
 	char ch1, ch2;
 	Player player1, player2;
-
 	Start();
-
 	cout << "Enter Player 1 name : ";
 	getline(cin, p1);
 	player1.set_name(p1);
-	//ch1 = character();
+	turn = symbol_for_player();
 	cout << "Enter Player 2 name : ";
 	cin.ignore();
 	getline(cin, p2);
 	player2.set_name(p2);
+	
+
 	while (game_over()) {
 		show_Board();
 		player_turn();
 		game_over();
 	}
+	if (turn == 'x' && game_draw == false)
+		cout << endl << "Congratulation player 'x' has won the game....!" << endl;
+	else if (turn == 'o' && game_draw == false)
+		cout << endl << "Congratulation player 'o' has won the game....!" << endl;
+	else
+		cout << "GAME DRAW....  :( " << endl;
 	//	system("CLS");
 	_getch();
 	return 0;
@@ -63,6 +70,7 @@ void Start() {
 		}
 	}
 }*/
+
 void show_Board() {
 	cout << "\t     |     |     \n";
 	cout << "\t  " << board[0][0] << "  | " << board[0][1] << "   |  " << board[0][2] << " \n";
@@ -75,6 +83,17 @@ void show_Board() {
 }
 void Play(Player p1, Player p2) {
 
+}
+char symbol_for_player() {
+	char s;
+	cout << "Enter the symbol(it can be 'x' or 'o'): ";
+	cin >> s;
+		if (s != 'x' && s != 'o') {
+			cout << "INVALID symbol.....!" << endl;
+			cout << "Please enter 'o' or 'x': ";
+			symbol_for_player();
+		}
+		return s;
 }
 /*char character() {
 	char num;
@@ -143,6 +162,6 @@ bool game_over() {
 				return true;
 
 	//Checking the if game already draw
-	draw = true;
+	game_draw = true;
 	return false;
 }
