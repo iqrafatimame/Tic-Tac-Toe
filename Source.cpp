@@ -5,20 +5,22 @@
 #include<string>
 
 using namespace std;
-//Array for the board
+							//Array for the board
 char board[3][3] = { {'1','2','3'},{'4','5','6'},{'7','8','9'} };
-//Variable Declaration
+							//Variable Declaration
 int option;
 int row, column;
 char turn;
 bool game_draw = false;
-// function declaration 
+							// function declaration 
 void show_Board();
 void Start();
 void player_turn();
 bool game_over();
 char symbol_for_player();
-
+// ****************************
+//			Main Function
+// ****************************
 int main() {
 	string p1, p2;
 	char ch1, ch2;
@@ -52,7 +54,9 @@ int main() {
 	_getch();
 	return 0;
 }
-
+// ****************************
+//		Start Function
+// ****************************
 void Start() {
 	cout << "    _____ _______  _____     _______  ____   _____     _______  ____   _____\n"
 		<< "      |      |    |             |    |    | |             |    |    | |\n"
@@ -61,7 +65,9 @@ void Start() {
 		<< "===============================================================================\n";
 	show_Board();
 }
-
+// ****************************
+//		Show Board
+// ****************************
 void show_Board() {
 	cout << "\n\n\n";
 	cout << "\t\t\t TURN:   PLAYER[" << turn << "]" << endl;
@@ -76,6 +82,9 @@ void show_Board() {
 	cout << "\t  " << board[2][0] << "  | " << board[2][1] << "   |  " << board[2][2] << " \n";
 	cout << "\n\n\n";
 }
+// ****************************
+// Function for choice of symbol
+// ****************************
 char symbol_for_player() {
 	char s;
 	cout << "Enter the symbol(it can be 'x' or 'o'): ";
@@ -87,6 +96,9 @@ char symbol_for_player() {
 		}
 		return s;
 }
+// ****************************
+//  Player Turn Function
+// ****************************
 void player_turn() {
 	if (turn == 'x')
 		cout << "PLAYER[x] turn: " << endl;
@@ -122,6 +134,9 @@ void player_turn() {
 	}
 	//show_Board();
 }
+// ****************************
+//		Game Over Function
+// ****************************
 bool game_over() {
 	//checking the win for Simple Rows and Simple Column
 	for (int i = 0; i < 3; i++)
